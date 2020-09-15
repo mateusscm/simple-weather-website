@@ -18,8 +18,8 @@ export default function HeaderNavigation({ routes }) {
       <S.ContainerList>
         {routes?.map((route) => {
           return (
-            <li>
-              <S.NavItem to={route.path} key={Math.random()}>
+            <li key={Math.random()}>
+              <S.NavItem to={route.path}>
                 {route.alias}
                 <div className="bar" />
               </S.NavItem>

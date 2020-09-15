@@ -1,5 +1,5 @@
 import React from "react";
-import notFound from "../../assets/images/snow.png";
+// import notFound from "../../assets/images/snow.png";
 
 export default function NotFound() {
   return (
@@ -7,16 +7,16 @@ export default function NotFound() {
       style={{
         display: "flex",
         justifyContent: "center",
-        margin: 10,
         flexDirection: "column",
         alignItems: "center",
+        margin: "120px 0px",
       }}
     >
-      <img
+      {/* <img
         alt="Nada por aqui..."
         src={notFound}
         style={{ width: "50vw", height: "65vh", marginBottom: 20 }}
-      />
+      /> */}
       <h1>
         <b>ERROR 404</b>
       </h1>
