@@ -1,40 +1,52 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./styles/Weather.styles";
 import { WeatherSunny } from "@styled-icons/typicons";
+import { countries } from "./data/countries";
 
 const api = {
-  key: "f76fa67450c00362e54689040cc5c05f",
-  url: "https://api.openweathermap.org/data/2.5/",
+  key: "1b8d4f60a0cb04f0aee84690827e48a2",
+  url: "http://api.openweathermap.org/data/2.5/",
 };
 
 export default function Weather() {
-  const [query, setQuery] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
   const [weather, setWeather] = useState({});
 
   function minmaxTemp(min, max) {
     return (
-      <h3>
-        <span>{min}&deg;</span>
-        <span>{max}&deg;</span>
+      <h3 className="minmax">
+        <span>{min}&deg;C</span>
+        <span>{max}&deg;C</span>
       </h3>
     );
   }
 
-  const searchText = (e) => {
-    e.preventDefault();
-    fetch(`${api.url}weather?q=${query}&units=metric&appid=${api.key}`)
+  // useEffect(() => {
+  //   getData("São Carlos", "BR");
+  // });
+
+  const getData = (ci, co) => {
+    console.log(`${api.url}weather?q=${ci},${co}&appid=${api.key}`);
+    fetch(`${api.url}weather?q=${ci},${co}&appid=${api.key}`)
       .then((res) => res.json())
       .then((result) => {
         setWeather(result);
-        setQuery("");
-        console.log(result);
+        setCity("");
+        setCountry("");
       })
       .catch((error) => console.log(error));
   };
 
+  const searchText = (e) => {
+    e.preventDefault();
+    console.log(city, country);
+    getData(city, country);
+  };
+
   const dateBuilder = (d) => {
     let months = [
-      "January",
+      "Janeiro",
       "Fevereiro",
       "Março",
       "Abril",
@@ -72,13 +84,48 @@ export default function Weather() {
         <input
           id="search"
           type="text"
-          placeholder="Search..."
+          placeholder="Type a city..."
           required
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
         />
+        <select
+          required
+          value={country}
+          onChange={(e) => setCountry(e.target.value)}
+        >
+          <option value="">Select a country</option>
+          {countries.map((c) => (
+            <option value={c.value} key={Math.random()}>
+              {c.label}
+            </option>
+          ))}
+        </select>
+        {/* <input
+          id="search"
+          type="text"
+          placeholder="Type a country..."
+          required
+          value={country}
+          onChange={(e) => setCountry(e.target.value)}
+        /> */}
         <button type="submit">Go</button>
       </form>
+      {/* <S.CardWeather>
+        <h5 className="date">Terça-feira, 20 de agosto de 2020</h5>
+        <hr className="divider" />
+        <h1 className="title">
+          São Paulo <span>BR</span>
+        </h1>
+        <h5 className="icon">
+          <WeatherSunny />
+        </h5>
+        <h1 className="temp">24&deg;C</h1>
+        <h5 className="feels">Feels Like: 30&deg;C</h5>
+        {minmaxTemp(Math.round(15), Math.round(33))}
+
+        <h4 className="phrase">Calor da desgraça</h4>
+      </S.CardWeather> */}
       {typeof weather.main != "undefined" ? (
         <div>
           <h1>
@@ -90,7 +137,6 @@ export default function Weather() {
           </h5>
           <h1>{Math.round(weather.main.temp)}&deg;C</h1>
           <h5>Feels Like: {weather.main.feels_like}</h5>
-          {/**mostra valor maximo e minimo de temperatura */}
           {minmaxTemp(
             Math.round(weather.main.temp_min),
             Math.round(weather.main.temp_max)
