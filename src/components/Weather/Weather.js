@@ -4,7 +4,7 @@ import { WeatherSunny } from "@styled-icons/typicons";
 import { countries } from "./data/countries";
 
 const api = {
-  // key: "f98e5394589b6b94a727042afd268652",
+  // key: "my api key",
   url: "https://api.openweathermap.org/data/2.5/",
 };
 
