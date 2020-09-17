@@ -1,24 +1,20 @@
 import React, { useState } from "react";
 import * as S from "./styles/Weather.styles";
 import { countries } from "./data/countries";
-import d_01 from '../../assets/images/weather-icons/01d.png';
-import n_01 from '../../assets/images/weather-icons/01n.png';
-import d_02 from '../../assets/images/weather-icons/02d.png';
-import n_02 from '../../assets/images/weather-icons/02n.png';
-import _03 from '../../assets/images/weather-icons/03.png';
-import _04 from '../../assets/images/weather-icons/04.png';
-import _09 from '../../assets/images/weather-icons/09.png';
-import n_10 from '../../assets/images/weather-icons/10n.png';
-import d_10 from '../../assets/images/weather-icons/10d.png';
-import n_11 from '../../assets/images/weather-icons/11n.png';
-import d_11 from '../../assets/images/weather-icons/11d.png';
-import _13 from '../../assets/images/weather-icons/13.png';
-import _50 from '../../assets/images/weather-icons/50.png';
-
-const api = {
-  key: "f98e5394589b6b94a727042afd268652",
-  url: "https://api.openweathermap.org/data/2.5/",
-};
+import { fetchWeather } from "../../api/fetchWeather";
+import d_01 from "../../assets/images/weather-icons/01d.png";
+import n_01 from "../../assets/images/weather-icons/01n.png";
+import d_02 from "../../assets/images/weather-icons/02d.png";
+import n_02 from "../../assets/images/weather-icons/02n.png";
+import _03 from "../../assets/images/weather-icons/03.png";
+import _04 from "../../assets/images/weather-icons/04.png";
+import _09 from "../../assets/images/weather-icons/09.png";
+import n_10 from "../../assets/images/weather-icons/10n.png";
+import d_10 from "../../assets/images/weather-icons/10d.png";
+import n_11 from "../../assets/images/weather-icons/11n.png";
+import d_11 from "../../assets/images/weather-icons/11d.png";
+import _13 from "../../assets/images/weather-icons/13.png";
+import _50 from "../../assets/images/weather-icons/50.png";
 
 export default function Weather() {
   const [city, setCity] = useState("");
@@ -34,25 +30,9 @@ export default function Weather() {
     );
   }
 
-  // useEffect(() => {
-  //   getData("São Carlos", "BR");
-  // });
-
-  const getData = (ci, co) => {
-    fetch(`${api.url}weather?q=${ci},${co}&units=metric&appid=${api.key}`)
-      .then((res) => res.json())
-      .then((result) => {
-        setWeather(result);
-        setCity("");
-        setCountry("");
-        console.log(result);
-      })
-      .catch((error) => console.log(error));
-  };
-
   const searchText = (e) => {
     e.preventDefault();
-    getData(city, country);
+    fetchWeather(city, country).then((res) => setWeather(res));
   };
 
   const dateBuilder = (d) => {
@@ -90,47 +70,46 @@ export default function Weather() {
 
   const verifyImage = (icon) => {
     switch (icon) {
-      case "01d": 
+      case "01d":
         return d_01;
-      case "01n": 
+      case "01n":
         return n_01;
-      case "02d": 
+      case "02d":
         return d_02;
-      case "02n": 
+      case "02n":
         return n_02;
-      case "03d": 
+      case "03d":
         return _03;
-      case "03n": 
+      case "03n":
         return _03;
-      case "04d": 
+      case "04d":
         return _04;
-      case "04n": 
+      case "04n":
         return _04;
-      case "09d": 
+      case "09d":
         return _09;
-      case "09n": 
+      case "09n":
         return _09;
-      case "10d": 
+      case "10d":
         return d_10;
-      case "10n": 
+      case "10n":
         return n_10;
-      case "11d": 
+      case "11d":
         return d_11;
-      case "11n": 
+      case "11n":
         return n_11;
-      case "13n": 
+      case "13n":
         return _13;
-      case "13d": 
+      case "13d":
         return _13;
-      case "50d": 
+      case "50d":
         return _50;
-      case "50n": 
+      case "50n":
         return _50;
-      default: 
+      default:
         return null;
-        
     }
-  }
+  };
 
   return (
     <S.WeatherContainer>
