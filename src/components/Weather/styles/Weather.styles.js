@@ -41,16 +41,17 @@ export const CardWeather = styled.div`
     margin-top: 10px;
   }
 
+  .date {
+    font-size: 0.7rem;
+  }
+
   .icon {
     img {
       margin-top: 10px;
       width: 150px;
       height: 150px;
-      background-color: rgba(231, 111, 81, 0.2);
       border-radius: 50%;
       padding: 15px;
-      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.1),
-        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
     }
   }
 `;
@@ -72,6 +73,10 @@ export const FormSearch = styled.form`
     box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
       0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
     outline: none;
+  }
+
+  select {
+    background-color: white;
   }
 
   button {
