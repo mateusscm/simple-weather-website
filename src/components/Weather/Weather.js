@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as S from "./styles/Weather.styles";
-import { WeatherSunny } from "@styled-icons/typicons";
 import { countries } from "./data/countries";
-
-const api = {
-  // key: "my api key",
-  url: "https://api.openweathermap.org/data/2.5/",
-};
+import { fetchWeather } from "../../api/fetchWeather";
 
 export default function Weather() {
   const [city, setCity] = useState("");
@@ -22,25 +17,9 @@ export default function Weather() {
     );
   }
 
-  // useEffect(() => {
-  //   getData("São Carlos", "BR");
-  // });
-
-  const getData = (ci, co) => {
-    fetch(`${api.url}weather?q=${ci},${co}&units=metric&appid=${api.key}`)
-      .then((res) => res.json())
-      .then((result) => {
-        setWeather(result);
-        setCity("");
-        setCountry("");
-        console.log(result);
-      })
-      .catch((error) => console.log(error));
-  };
-
   const searchText = (e) => {
     e.preventDefault();
-    getData(city, country);
+    fetchWeather(city, country).then((res) => setWeather(res));
   };
 
   const dateBuilder = (d) => {
