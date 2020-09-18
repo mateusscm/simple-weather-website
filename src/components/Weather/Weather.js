@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import * as S from "./styles/Weather.styles";
-import { countries } from "./data/countries";
-import { fetchWeather } from "../../api/fetchWeather";
 import d_01 from "../../assets/images/weather-icons/01d.png";
 import n_01 from "../../assets/images/weather-icons/01n.png";
 import d_02 from "../../assets/images/weather-icons/02d.png";
@@ -16,11 +14,7 @@ import d_11 from "../../assets/images/weather-icons/11d.png";
 import _13 from "../../assets/images/weather-icons/13.png";
 import _50 from "../../assets/images/weather-icons/50.png";
 
-export default function Weather() {
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
-  const [weather, setWeather] = useState({});
-
+export default function Weather({ weather }) {
   function minmaxTemp(min, max) {
     return (
       <h3 className="minmax">
@@ -29,11 +23,6 @@ export default function Weather() {
       </h3>
     );
   }
-
-  const searchText = (e) => {
-    e.preventDefault();
-    fetchWeather(city, country).then((res) => setWeather(res));
-  };
 
   const dateBuilder = (d) => {
     let months = [
@@ -111,58 +100,30 @@ export default function Weather() {
     }
   };
 
-  return (
-    <S.WeatherContainer>
-      <S.FormSearch onSubmit={searchText} role="search">
-        {/* <label for="search">Search for stuff</label> */}
-        <input
-          id="search"
-          type="text"
-          placeholder="Type a city..."
-          required
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
+  return typeof weather.main != "undefined" ? (
+    <S.CardWeather>
+      <h3 className="date">{dateBuilder(new Date())}</h3>
+      <hr className="divider" />
+      <h1 className="title">
+        {weather.name} <span>{weather.sys.country}</span>
+      </h1>
+      <h5 className="icon">
+        <img
+          className="city-icon"
+          src={verifyImage(weather.weather[0].icon)}
+          alt={weather.weather[0].description}
         />
-        <select
-          required
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-        >
-          <option value="">Select a country</option>
-          {countries.map((c) => (
-            <option value={c.value} key={Math.random()}>
-              {c.label}
-            </option>
-          ))}
-        </select>
-        <button type="submit">Go</button>
-      </S.FormSearch>
-      {typeof weather.main != "undefined" ? (
-        <S.CardWeather>
-          <h3 className="date">{dateBuilder(new Date())}</h3>
-          <hr className="divider" />
-          <h1 className="title">
-            {weather.name} <span>{weather.sys.country}</span>
-          </h1>
-          <h5 className="icon">
-            <img
-              className="city-icon"
-              src={verifyImage(weather.weather[0].icon)}
-              alt={weather.weather[0].description}
-            />
-          </h5>
-          <h1 className="temp">{weather.main.temp}&deg;C</h1>
-          <h5 className="feels">Feels Like: {weather.main.feels_like}</h5>
-          {minmaxTemp(
-            Math.round(weather.main.temp_min),
-            Math.round(weather.main.temp_max)
-          )}
-
-          <h4 className="phrase">{weather.weather[0].main}</h4>
-        </S.CardWeather>
-      ) : (
-        "Nada por aqui, por enquanto..."
+      </h5>
+      <h1 className="temp">{weather.main.temp}&deg;C</h1>
+      <h5 className="feels">Feels Like: {weather.main.feels_like}</h5>
+      {minmaxTemp(
+        Math.round(weather.main.temp_min),
+        Math.round(weather.main.temp_max)
       )}
-    </S.WeatherContainer>
+
+      <h4 className="phrase">{weather.weather[0].main}</h4>
+    </S.CardWeather>
+  ) : (
+    "Nada por aqui, por enquanto..."
   );
 }
