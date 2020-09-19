@@ -1,5 +1,5 @@
 const api = {
-  key: "api aqui",
+  key: process.env.REACT_APP_OPENWEATHER_API,
   url: "https://api.openweathermap.org/data/2.5/",
 };
 
