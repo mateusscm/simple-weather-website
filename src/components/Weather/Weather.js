@@ -26,7 +26,7 @@ export default function Weather({ weather }) {
           alt={weather.weather[0].description}
         />
       </h5>
-      <h1 className="temp">{weather.main.temp}&deg;C</h1>
+      <h1 className="temp">{Math.round(weather.main.temp)}&deg;C</h1>
       <h5 className="feels">Feels Like: {weather.main.feels_like}</h5>
       {minmaxTemp(
         Math.round(weather.main.temp_min),

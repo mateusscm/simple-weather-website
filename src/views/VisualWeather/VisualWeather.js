@@ -15,12 +15,7 @@ export default function VisualWeather() {
     e.preventDefault();
     fetchWeather(city, country).then((res) => {
       setWeather(res);
-      addStory({
-        id: Math.floor(Math.random() * 10000),
-        icon: res.weather[0].icon,
-        place: res.name,
-        region: res.sys.country,
-      });
+      addStory(res);
     });
   };
 
@@ -52,7 +47,7 @@ export default function VisualWeather() {
           <Weather weather={weather} />
           <S.ContainerMiniCards>
             {stories.map((storie) => (
-              <MiniWeather storie={storie} key={storie.id} />
+              <MiniWeather storie={storie} key={storie.name} />
             ))}
           </S.ContainerMiniCards>
         </S.WeatherContainer>
