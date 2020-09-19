@@ -7,6 +7,7 @@ export const FormSearch = styled.form`
   grid-template-columns: 1fr 1fr 100px;
   grid-template-areas: "input select button";
   grid-gap: 20px;
+  margin-bottom: 10px;
 
   select,
   input,

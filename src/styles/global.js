@@ -1,7 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 import "./fonts.css";
-import warm from '../assets/images/warm.jpg';
-import cold from '../assets/images/cold.jpg';
 
 export default createGlobalStyle`
 
@@ -12,8 +10,13 @@ export default createGlobalStyle`
 }
 
 body {
-    background: #e1e1e1;
-    background-image: url(${warm || cold});
+    /* background: #70e1f5;  
+background: -webkit-linear-gradient(to right, #ffd194, #70e1f5);  
+background: linear-gradient(to right, #ffd194, #70e1f5);  */
+    background: #C9FFBF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFAFBD, #C9FFBF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFAFBD, #C9FFBF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     background-repeat: round;
     font-size: 14px;
     color: #000;

@@ -1,12 +1,12 @@
 import React from "react";
 import { HomeOutline, GlobeOutline } from "@styled-icons/typicons";
-import App from "../../views/App/App";
+import Home from "../../views/Home/Home";
 import VisualWeather from "../../views/VisualWeather/VisualWeather";
 
 export const routes = [
   {
     path: "/home",
-    component: App,
+    component: Home,
     exact: true,
     icon: <HomeOutline />,
     alias: "Home",

@@ -1,18 +1,35 @@
 import styled from "styled-components";
+import warm from "../../../assets/images/warm.jpg";
+import cold from "../../../assets/images/cold.jpg";
 
 export const CardWeather = styled.div`
-  margin: 10px 0px;
   padding: 20px;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: 8px;
-  min-width: 300px;
+  width: 300px;
+  max-width: 300px;
+  height: 380px;
   font-weight: 400;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  flex: 1;
+
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url(${(props) => (props.temp > 15 ? warm : cold)}) center center;
+    border-radius: 8px;
+  }
 
   .title {
     font-size: 2rem;
