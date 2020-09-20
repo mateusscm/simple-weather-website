@@ -4,7 +4,7 @@ import * as S from "./styles/MiniWeather.styles";
 
 export default function MiniWeather({ storie }) {
   return (
-    <S.MiniCardWeather>
+    <S.MiniCardWeather temp={storie.main.temp}>
       <S.TitleStory>
         {storie.name} <span>{storie.sys.country}</span>
       </S.TitleStory>

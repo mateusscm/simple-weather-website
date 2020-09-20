@@ -16,6 +16,8 @@ export default function VisualWeather() {
     fetchWeather(city, country).then((res) => {
       setWeather(res);
       addStory(res);
+      setCountry("");
+      setCity("");
     });
   };
 
