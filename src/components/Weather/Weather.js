@@ -2,6 +2,7 @@ import React from "react";
 import * as S from "./styles/Weather.styles";
 import { dateBuilder, verifyImage } from "../../utils/functions";
 import { MapMarkerAlt } from "@styled-icons/fa-solid";
+import { motion } from "framer-motion";
 
 export default function Weather({ weather }) {
   function minmaxTemp(min, max) {
@@ -14,7 +15,17 @@ export default function Weather({ weather }) {
   }
 
   return (
-    <S.CardWeather temp={weather.main.temp}>
+    <S.CardWeather 
+      temp={weather.main.temp}
+      as={motion.section}
+      transition={{ delay: 0, duration: 0.5 }}
+      variants={{
+        show: { opacity: 1 },
+        hidden: { opacity: 0 },
+      }}
+      initial="hidden"
+      animate="show"
+    >
       <h3 className="date">{dateBuilder(new Date())}</h3>
       <hr className="divider" />
       <h1 className="title">

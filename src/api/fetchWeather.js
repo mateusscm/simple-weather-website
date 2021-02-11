@@ -1,5 +1,5 @@
 const api = {
-  key: process.env.REACT_APP_OPENWEATHER_API,
+  key: '1b8d4f60a0cb04f0aee84690827e48a2',
   url: "https://api.openweathermap.org/data/2.5/",
 };
 
